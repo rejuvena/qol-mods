@@ -1,19 +1,21 @@
 ﻿using System.Collections.Generic;
+using JetBrains.Annotations;
 using Terraria.ModLoader;
 using Terraria.ModLoader.Config;
 
-namespace RecipeShuffler
+namespace Rejuvena.Gimmick.RecipeShuffler
 {
-    [Label("Server-Side Suffler Config")]
+    [Label("$Mods.RecipeShuffler.Config.ConfigName")]
     public class ShufflerConfig : ModConfig
     {
-        public static ShufflerConfig Get => ModContent.GetInstance<ShufflerConfig>();
-        
+        public static ShufflerConfig Instance => ModContent.GetInstance<ShufflerConfig>();
+
         public override ConfigScope Mode => ConfigScope.ServerSide;
 
-        [Header("Suffling Restrictions")]
-        [Label("Shuffler Blacklist")]
-        [Tooltip("Recipe results to filter out from shuffling.")]
+        [UsedImplicitly]
+        [Header("$Mods.RecipeShuffler.Config.RestrictionsHeader")]
+        [Label("$Mods.RecipeShuffler.Config.BlacklistedItemsLabel")]
+        [Tooltip("$Mods.RecipeShuffler.Config.BlacklistedItemsTooltip")]
         public List<ItemDefinition> BlacklistedItems { get; set; } = new();
     }
 }

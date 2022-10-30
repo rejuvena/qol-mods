@@ -1,17 +1,16 @@
-﻿using RecipeShuffler.Cache;
-using ReLogic.Utilities;
-using System;
+﻿using System;
 using System.Diagnostics;
+using Rejuvena.Gimmick.RecipeShuffler.Cache;
+using ReLogic.Utilities;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-
-namespace RecipeShuffler
+namespace Rejuvena.Gimmick.RecipeShuffler
 {
     public class WorldRecipeRandomizer : ModPlayer
     {
-        protected RecipeShuffler Shuffler => (RecipeShuffler)Mod;
+        protected RecipeShufflerMod ShufflerMod => (RecipeShufflerMod)Mod;
 
         protected Func<bool>? Task = null;
 
@@ -24,7 +23,7 @@ namespace RecipeShuffler
                 WorldGen.currentWorldSeed = "";
 
                 // Send request packet to the server.
-                ModPacket packet = Shuffler.GetPacket();
+                ModPacket packet = ShufflerMod.GetPacket();
                 packet.Write((byte)PacketHandler.PacketType.RequestSeedFromServer);
                 packet.Send();
 
@@ -54,7 +53,7 @@ namespace RecipeShuffler
             void Log(string msg)
             {
                 Main.NewText($"[{Mod.Name}] {msg}");
-                Shuffler.Logger.Debug($"[{Mod.Name}] {msg}");
+                ShufflerMod.Logger.Debug($"[{Mod.Name}] {msg}");
             }
 
             if (Debugger.IsAttached) Log("[Debug] Found world seed: " + WorldGen.currentWorldSeed);
@@ -63,9 +62,9 @@ namespace RecipeShuffler
 
             Log($"Loading recipe cache for world seed: {seed}");
 
-            if (Shuffler.Caches.ContainsKey(seed))
+            if (ShufflerMod.Caches.ContainsKey(seed))
             {
-                if (Shuffler.Caches[seed].VerifyIntegrity(Shuffler.VanillaCache))
+                if (ShufflerMod.Caches[seed].VerifyIntegrity(ShufflerMod.VanillaCache))
                 {
                     Log("Failed to verify pre-existing recipe cache for world, going to re-shuffle.");
                     goto IntegFail;
@@ -78,10 +77,10 @@ namespace RecipeShuffler
 
         IntegFail:
             RecipeCache cache = new();
-            cache.SetRecipes(Shuffler.VanillaCache.ReadonlyRecipes);
+            cache.SetRecipes(ShufflerMod.VanillaCache.ReadonlyRecipes);
             cache.ShuffleRecipes(seed);
 
-            if (!cache.VerifyIntegrity(Shuffler.VanillaCache))
+            if (!cache.VerifyIntegrity(ShufflerMod.VanillaCache))
             {
                 Log("Couldn't verify integrity of brand-new recipe cache, panicking!");
                 return;
@@ -89,8 +88,8 @@ namespace RecipeShuffler
 
             Log("Successfully shuffled and verified newly-created recipe cache.");
 
-            Shuffler.VanillaCache.SetRecipes(cache.ReadonlyRecipes);
-            Shuffler.Caches[seed] = cache;
+            ShufflerMod.VanillaCache.SetRecipes(cache.ReadonlyRecipes);
+            ShufflerMod.Caches[seed] = cache;
 
             Log("Applied new recipe cache to the current world.");
         }

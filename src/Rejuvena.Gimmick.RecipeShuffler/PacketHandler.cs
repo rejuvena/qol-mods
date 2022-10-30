@@ -4,9 +4,9 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace RecipeShuffler
+namespace Rejuvena.Gimmick.RecipeShuffler
 {
-    public class PacketHandler
+    public sealed class PacketHandler
     {
         public enum PacketType : byte
         {
@@ -14,14 +14,14 @@ namespace RecipeShuffler
             SendSeedToClient
         }
 
-        protected readonly RecipeShuffler Mod;
+        public RecipeShufflerMod Mod { get; }
 
-        public PacketHandler(RecipeShuffler mod)
+        public PacketHandler(RecipeShufflerMod mod)
         {
             Mod = mod;
         }
 
-        public virtual void HandlePacket(BinaryReader reader, int whoAmI)
+        public void HandlePacket(BinaryReader reader, int whoAmI)
         {
             PacketType packetType = (PacketType)reader.ReadByte();
 
@@ -33,7 +33,7 @@ namespace RecipeShuffler
             else if (Main.netMode == NetmodeID.SinglePlayer) throw new Exception("Somehow tried to sync in singleplayer!");
         }
 
-        protected virtual void HandlePacketFromClient(PacketType packetType, BinaryReader reader, int whoAmI)
+        private void HandlePacketFromClient(PacketType packetType, BinaryReader reader, int whoAmI)
         {
             switch (packetType)
             {
@@ -51,7 +51,7 @@ namespace RecipeShuffler
             }
         }
 
-        protected virtual void HandlePacketFromServer(PacketType packetType, BinaryReader reader, int whoAmI)
+        private void HandlePacketFromServer(PacketType packetType, BinaryReader reader, int whoAmI)
         {
             switch (packetType)
             {

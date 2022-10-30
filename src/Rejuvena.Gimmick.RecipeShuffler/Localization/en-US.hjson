@@ -1,0 +1,12 @@
+﻿{
+    Mods.RecipeShuffler: {
+        Config: {
+            ConfigName: Server-Side Shuffler Config
+            
+            RestrictionsHeader: Shuffling Restrictions
+            
+            BlacklistedItemsLabel: Shuffler Blacklist.
+            BlacklistedItemsTooltip: Recipe results to filter out from shuffling.
+        }
+    }
+}

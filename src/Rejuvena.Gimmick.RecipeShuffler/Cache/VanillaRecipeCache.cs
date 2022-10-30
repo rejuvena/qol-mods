@@ -4,7 +4,7 @@ using System.Linq;
 using Terraria;
 using Terraria.ID;
 
-namespace RecipeShuffler.Cache
+namespace Rejuvena.Gimmick.RecipeShuffler.Cache
 {
     public class VanillaRecipeCache : RecipeCache
     {

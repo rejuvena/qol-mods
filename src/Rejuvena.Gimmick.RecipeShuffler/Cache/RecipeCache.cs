@@ -4,11 +4,10 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reflection;
 using Terraria;
-using Terraria.ModLoader;
 using Terraria.ID;
-using Terraria.ModLoader.Config;
+using Terraria.ModLoader;
 
-namespace RecipeShuffler.Cache
+namespace Rejuvena.Gimmick.RecipeShuffler.Cache
 {
     /// <summary>
     ///     Object representing a shuffled recipe state.
@@ -35,7 +34,7 @@ namespace RecipeShuffler.Cache
         /// </summary>
         public virtual void ShuffleRecipes(int seed)
         {
-            static bool Allow(Recipe r) => ShufflerConfig.Get.BlacklistedItems.All(
+            static bool Allow(Recipe r) => ShufflerConfig.Instance.BlacklistedItems.All(
                 item => item.Type != r.createItem.type
             );
             

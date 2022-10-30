@@ -1,0 +1,18 @@
+Shuffles recipe results. Results are shuffled based on world seed, making this multiplayer-compatible and persistent between playthroughs (as long as no mods are added or removed after playing in the world).
+
+Made as a mod commission for mars#3486, thanks!
+
+v1.0.4
+ - Redid code for setting recipes, should fix any weird errors.
+
+v1.0.3
+ - Updated to the latest version of tModLoader, fixed multiplayer.
+
+v1.0.2
+ - Fixed a fatal error that caused clients to crash if the config was not initialized.
+
+v1.0.1
+ - Added a shuffling blacklist. You can lock some recipes to their vanilla versions.
+
+v1.0.0
+ - Initial release

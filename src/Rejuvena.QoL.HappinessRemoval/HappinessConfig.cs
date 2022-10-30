@@ -1,32 +1,37 @@
 ﻿using System.ComponentModel;
+using JetBrains.Annotations;
 using Terraria;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader.Config;
 
 namespace Rejuvena.QoL.HappinessRemoval
 {
-    [Label("Happiness Config")]
-    public class HappinessConfig : ModConfig
+    [UsedImplicitly] [Label("$Mods.HappinessRemoval.Config.ConfigName")]
+    public sealed class HappinessConfig : ModConfig
     {
         public override ConfigScope Mode => ConfigScope.ServerSide;
 
-        [Header("Happiness")]
-        [Label("Use Vanilla Happiness")]
-        [Tooltip("If enabled, Vanilla happiness values will be used instead of being overridden by this mod.")]
+        [UsedImplicitly]
+        [Header("$Mods.HappinessRemoval.Config.HappinessHeader")]
+        [Label("$Mods.HappinessRemoval.Config.ToggleHappinessLabel")]
+        [Tooltip("$Mods.HappinessRemoval.Config.ToggleHappinessTooltip")]
         [DefaultValue(false)]
-        public bool ToggleHappiness = false;
+        public bool ToggleHappiness { get; set; }
 
-        [Label("NPC Happiness Level")]
-        [Tooltip("The lower this slider is, the happier NPCs will be.")]
+        [UsedImplicitly]
+        [Label("$Mods.HappinessRemoval.Config.NpcHappinessLabel")]
+        [Tooltip("$Mods.HappinessRemoval.Config.NpcHappinessTooltip")]
         [Slider]
         [DefaultValue(0.75f)]
         [Range(0.5f, 2f)]
-        public float NpcHappiness = 0.75f;
+        public float NpcHappiness { get; set; }
 
-        [Label("Override Pylon Happiness")]
-        [Tooltip("Forces an NPC to sell a pylon regardless of happiness if true.")]
+        [UsedImplicitly]
+        [Label("$Mods.HappinessRemoval.Config.OverridePylonLabel")]
+        [Tooltip("$Mods.HappinessRemoval.Config.OverridePylonTooltip")]
         [DefaultValue(true)]
-        public bool OverridePylon = true;
+        public bool OverridePylon { get; set; }
 
         public override bool AcceptClientChanges(ModConfig pendingConfig, int whoAmI, ref string message) {
             if (Main.netMode == NetmodeID.SinglePlayer) return true;
@@ -34,7 +39,7 @@ namespace Rejuvena.QoL.HappinessRemoval
                 if (Netplay.Clients[i].State == 10 && Main.player[i] == Main.player[whoAmI] && Netplay.Clients[i].Socket.GetRemoteAddress().IsLocalHost())
                     return true;
 
-            message = "You are not the server host!";
+            message = Language.GetTextValue("Mods.HappinessRemoval.Config.NotTheServerHost");
             return false;
         }
     }

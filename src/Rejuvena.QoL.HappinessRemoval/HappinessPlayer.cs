@@ -1,4 +1,5 @@
 ﻿using Terraria;
+using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace Rejuvena.QoL.HappinessRemoval
@@ -14,7 +15,7 @@ namespace Rejuvena.QoL.HappinessRemoval
             if (!Main.npcChatFocus4)
                 return;
 
-            Main.instance.MouseText("NPC happiness disabled by NPC Happiness Removal!");
+            Main.instance.MouseText(Language.GetTextValue("Mods.HappinessRemoval.Chat.HappinessRemoved"));
             Main.mouseText = true;
         }
     }

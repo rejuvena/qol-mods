@@ -10,5 +10,26 @@
     
             ILLoadError: WARNING: Non-fatal IL patch failed to apply: {0}.
         }
+        
+        Chat: {
+            HappinessRemoved: NPC happiness disabled by NPC Happiness Removal!
+        }
+        
+        Config: {
+            NotTheServerHost: You are not the server host!
+            
+            ConfigName: HappinessConfig
+            
+            HappinessHeader: Happiness
+            
+            ToggleHappinessLabel: Use Vanilla Happiness
+            ToggleHappinessTooltip: If enabled, Vanilla happiness values will be used instead of being overridden by this mod.
+            
+            NpcHappinessLabel: NPC Happiness Level
+            NpcHappinessTooltip: The lower this slider is, the happier NPCs will be.
+            
+            OverridePylonLabel: Override Pylon Happiness
+            OverridePylonTooltip: Forces an NPC to sell a pylon regardless of happiness if true.
+        }
     }
 }

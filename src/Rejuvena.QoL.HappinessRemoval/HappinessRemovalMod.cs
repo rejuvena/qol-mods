@@ -43,7 +43,7 @@ namespace Rejuvena.QoL.HappinessRemoval
             {
                 ILCursor c = new(il);
 
-                if (!c.TryGotoNext(x => x.MatchStloc(0))) {
+                if (!c.TryGotoNext(MoveType.Before, x => x.MatchStloc(0))) {
                     LogILError("Terraria.Chest::SetupShop stloc.0");
                     return;
                 }

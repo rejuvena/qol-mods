@@ -13,8 +13,6 @@
         <HideCode>false</HideCode>
         <HideResources>false</HideResources>
         <IncludeSource>true</IncludeSource>
-
-        <BuildIgnore>.collate/,Properties/</BuildIgnore>
     </PropertyGroup>
 
     <PropertyGroup Label="Collate Configuration">

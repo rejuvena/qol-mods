@@ -26,6 +26,8 @@ namespace Rejuvena.QoL.HappinessRemoval
                 static void Log(string text) => Main.NewText(text, Colors.RarityRed);
 
                 base.OnEnterWorld(player);
+                
+                if (Mod.Warnings.Count == 0) return;
 
                 Log(Language.GetTextValue("Mods.HappinessRemoval.Errors.ErrorWarnMessage"));
                 Mod.Warnings.ForEach(Log);
@@ -67,8 +69,8 @@ namespace Rejuvena.QoL.HappinessRemoval
 
         private void LogILError(string name) {
             string text = Language.GetTextValue("Mods.HappinessRemoval.Errors.ILLoadError", name);
-            Logger.Warn(text);
             Warnings.Add(text);
+            Logger.Warn(text);
         }
     }
 }

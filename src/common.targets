@@ -22,4 +22,9 @@
         <NamespaceGenerator>enable</NamespaceGenerator>
     </PropertyGroup>
 
+    <ItemGroup>
+        <PackageReference Include="JetBrains.Annotations" Version="2022.1.0"/>
+        <PackageReference Include="Rejuvena.Collate" Version="1.2.0"/>
+    </ItemGroup>
+
 </Project>

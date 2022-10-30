@@ -1,12 +1,12 @@
 <Project>
 
-    <PropertyGroup>
+    <PropertyGroup Label="Project Settings">
         <TargetFramework>net6.0</TargetFramework>
         <LangVersion>latest</LangVersion>
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
-    <PropertyGroup>
+    <PropertyGroup Label="Build Properties">
         <Author>Tomat &amp; the Rejuvena Team</Author>
         <Homepage>https://discord.gg/Y8bvvqyFQw</Homepage>
 
@@ -17,12 +17,12 @@
         <BuildIgnore>.collate/,Properties/</BuildIgnore>
     </PropertyGroup>
 
-    <PropertyGroup>
+    <PropertyGroup Label="Collate Configuration">
         <TMLCodeAssist>enable</TMLCodeAssist>
         <NamespaceGenerator>enable</NamespaceGenerator>
     </PropertyGroup>
 
-    <ItemGroup>
+    <ItemGroup Label="Shared Packages">
         <PackageReference Include="JetBrains.Annotations" Version="2022.1.0"/>
         <PackageReference Include="Rejuvena.Collate" Version="1.2.0"/>
     </ItemGroup>

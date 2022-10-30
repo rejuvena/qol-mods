@@ -20,6 +20,8 @@
     <PropertyGroup Label="Collate Configuration">
         <TMLCodeAssist>enable</TMLCodeAssist>
         <NamespaceGenerator>enable</NamespaceGenerator>
+        
+        <AccessTransformerPaths>$(AccessTransformerPaths);$(MSBuildProjectDirectory)\.accesstransformer</AccessTransformerPaths>
     </PropertyGroup>
 
     <ItemGroup Label="Shared Packages">

@@ -1,7 +1,7 @@
 ﻿using Terraria;
 using Terraria.ModLoader;
 
-namespace HappinessRemoval
+namespace Rejuvena.QoL.HappinessRemoval
 {
     public class HappinessPlayer : ModPlayer
     {

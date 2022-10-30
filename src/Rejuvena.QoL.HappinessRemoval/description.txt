@@ -1,3 +1,1 @@
-This mod uses Tea Framework, which must be installed and enabled to properly use this mod.
-
-Happiness Configuration (originally NPC Happiness Removal) allows you to toggle whether or not NPC happiness should function in-game, and lets you manually set how happy/sad NPCs are. It also lets you toggle whether pylons should be made available to sell at all times.
+Happiness Configuration (originally NPC Happiness Removal, internally referred to as HappinessRemoval) allows you to configure the happiness level of NPCs as well as whether they should sell pylons regardless of happiness.

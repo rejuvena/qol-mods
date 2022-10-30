@@ -3,7 +3,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader.Config;
 
-namespace HappinessRemoval
+namespace Rejuvena.QoL.HappinessRemoval
 {
     [Label("Happiness Config")]
     public class HappinessConfig : ModConfig

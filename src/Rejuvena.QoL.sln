@@ -3,6 +3,19 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30114.105
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "repo", "repo", "{4BE04DE2-6E39-4855-87E3-74CEAD0FEF89}"
+	ProjectSection(SolutionItems) = preProject
+		..\LICENSE = ..\LICENSE
+		..\README.md = ..\README.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{CCA5AEB9-01A1-4981-9350-82149FEF5A23}"
+	ProjectSection(SolutionItems) = preProject
+		common.targets = common.targets
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rejuvena.QoL.HappinessRemoval", "Rejuvena.QoL.HappinessRemoval\Rejuvena.QoL.HappinessRemoval.csproj", "{734B5952-1855-4199-94AC-DA8A90F2559C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -10,5 +23,14 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{734B5952-1855-4199-94AC-DA8A90F2559C} = {CCA5AEB9-01A1-4981-9350-82149FEF5A23}
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{734B5952-1855-4199-94AC-DA8A90F2559C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{734B5952-1855-4199-94AC-DA8A90F2559C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{734B5952-1855-4199-94AC-DA8A90F2559C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{734B5952-1855-4199-94AC-DA8A90F2559C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

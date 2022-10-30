@@ -1,0 +1,25 @@
+<Project>
+
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <LangVersion>latest</LangVersion>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <Author>Tomat &amp; the Rejuvena Team</Author>
+        <Homepage>https://discord.gg/Y8bvvqyFQw</Homepage>
+
+        <HideCode>false</HideCode>
+        <HideResources>false</HideResources>
+        <IncludeSource>true</IncludeSource>
+
+        <BuildIgnore>.collate/,Properties/</BuildIgnore>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <TMLCodeAssist>enable</TMLCodeAssist>
+        <NamespaceGenerator>enable</NamespaceGenerator>
+    </PropertyGroup>
+
+</Project>

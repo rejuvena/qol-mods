@@ -1,0 +1,6 @@
+displayName = Happiness Configuration
+author = Tomat
+version = 2.2.0
+modReferences = TeaFramework@1.3.0
+sortAfter = TeaFramework
+homepage = https://discord.gg/tomat

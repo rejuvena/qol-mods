@@ -163,7 +163,7 @@ public class FertilephyteMod : Mod
     }
 
     // Reverse-engineered Terraria.WorldGen::Chlorophyte
-    // Return value determines if a Chlorophyte tile maybe placed based on analyzing the radius.
+    // Return value determines if a Chlorophyte tile may be placed based on analyzing the radius.
     /*public static bool Chlorophyte(int centerX, int centerY) {
         int limitNear = 40;
         int radiusNear = 35;

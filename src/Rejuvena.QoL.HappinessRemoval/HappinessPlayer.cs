@@ -2,21 +2,20 @@
 using Terraria.Localization;
 using Terraria.ModLoader;
 
-namespace Rejuvena.QoL.HappinessRemoval
+namespace Rejuvena.QoL.HappinessRemoval;
+
+public class HappinessPlayer : ModPlayer
 {
-    public class HappinessPlayer : ModPlayer
+    public override void PreUpdate()
     {
-        public override void PreUpdate()
-        {
-            if (ModContent.GetInstance<HappinessConfig>().ToggleHappiness) return;
+        if (ModContent.GetInstance<HappinessConfig>().ToggleHappiness) return;
 
-            Player.currentShoppingSettings.PriceAdjustment = ModContent.GetInstance<HappinessConfig>().NpcHappiness;
+        Player.currentShoppingSettings.PriceAdjustment = ModContent.GetInstance<HappinessConfig>().NpcHappiness;
 
-            if (!Main.npcChatFocus4)
-                return;
+        if (!Main.npcChatFocus4)
+            return;
 
-            Main.instance.MouseText(Language.GetTextValue("Mods.HappinessRemoval.Chat.HappinessRemoved"));
-            Main.mouseText = true;
-        }
+        Main.instance.MouseText(Language.GetTextValue("Mods.HappinessRemoval.Chat.HappinessRemoved"));
+        Main.mouseText = true;
     }
 }

@@ -115,7 +115,8 @@ public class FertilephyteMod : Mod
             void EmitAndMultiplyValue(int local) {
                 c.Emit(OpCodes.Ldloc, local); // push local
                 c.Emit(OpCodes.Conv_R8); // convert to float
-                c.Emit(OpCodes.Ldc_R8, 1.5); // push value to multiply by
+                // c.Emit(OpCodes.Ldc_R8, 1.5); // push value to multiply by
+                c.EmitDelegate(() => NPC.downedPlantBoss ? 1.5 : 1.0); // push 1.5 if Plantera has been killed, otherwise 1.0 (value to multiply by)
                 c.Emit(OpCodes.Mul); // multiply
                 c.Emit(OpCodes.Conv_I4); // convert back to int
                 c.Emit(OpCodes.Stloc, local); // set local

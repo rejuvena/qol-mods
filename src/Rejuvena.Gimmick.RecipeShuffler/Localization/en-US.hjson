@@ -8,5 +8,16 @@
             BlacklistedItemsLabel: Shuffler Blacklist.
             BlacklistedItemsTooltip: Recipe results to filter out from shuffling.
         }
+        
+        Chat: {
+            FoundWorldSeed: Found world seed: {0}
+            
+            LoadingCache: Loading recipe cache for world seed: {0}
+            FailedVerification: Failed to verify pre-existing recipe cache for world, going to re-shuffle.
+            UsingVerified: Using verified pre-existing recipe cache for world.
+            FailedIntegrity: Couldn't verify integrity of brand-new recipe cache, panicking!
+            SuccessfullyShuffled: Successfully shuffled and verified newly-created recipe cache.
+            AppliedNew: Applied new recipe cache to the current world.
+        }
     }
 }

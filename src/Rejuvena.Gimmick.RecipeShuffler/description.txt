@@ -2,6 +2,9 @@ Shuffles recipe results. Results are shuffled based on world seed, making this m
 
 Made as a mod commission for mars#3486, thanks!
 
+v2.0.0
+ - Significant rewrite. Fixed issues with Magic Storage.
+
 v1.0.4
  - Redid code for setting recipes, should fix any weird errors.
 

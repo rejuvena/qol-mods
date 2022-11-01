@@ -9,9 +9,10 @@ namespace Rejuvena.Gimmick.RecipeShuffler
     [UsedImplicitly]
     public sealed class RecipeShufflerMod : Mod
     {
+        [UsedImplicitly]
         public class VanillaRecipeCacheInitializer : ModSystem
         {
-            private RecipeShufflerMod Mod => (RecipeShufflerMod) base.Mod;
+            private new RecipeShufflerMod Mod => (RecipeShufflerMod) base.Mod;
 
             public override bool IsLoadingEnabled(Mod mod) {
                 if (mod is RecipeShufflerMod) return true;

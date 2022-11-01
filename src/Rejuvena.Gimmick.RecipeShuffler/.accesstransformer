@@ -1,0 +1,4 @@
+﻿v1
+
+public -r System.Boolean Terraria.ModLoader.RecipeLoader::setupRecipes
+public = System.Object System.Object::MemberwiseClone()

@@ -4,7 +4,7 @@
         <DisplayName>Happiness Removal</DisplayName>
         <AssemblyName>HappinessRemoval</AssemblyName>
         <RootNamespace>Rejuvena.QoL.HappinessRemoval</RootNamespace>
-        <Version>3.0.3</Version>
+        <Version>3.0.4</Version>
     </PropertyGroup>
 
     <Import Project="../common.targets" />

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 using JetBrains.Annotations;
@@ -39,9 +40,27 @@ public sealed class RecipeShufflerMod : Mod
 
     public Dictionary<int, RecipeCache> Caches { get; } = new();
 
+    public event Action<int>? PreRecipeShuffle;
+
+    public event Action<RecipeCache>? RecipeShuffle;
+
+    public event Action<RecipeCache>? PostRecipeShuffle;
+
     public RecipeShufflerMod() {
         PacketHandler = new PacketHandler(this);
     }
 
     public override void HandlePacket(BinaryReader reader, int whoAmI) => PacketHandler.HandlePacket(reader, whoAmI);
+
+    public void OnPreRecipeShuffle(int seed) {
+        PreRecipeShuffle?.Invoke(seed);
+    }
+
+    public void OnRecipeShuffle(RecipeCache cache) {
+        RecipeShuffle?.Invoke(cache);
+    }
+
+    public void OnPostRecipeShuffle(RecipeCache cache) {
+        PostRecipeShuffle?.Invoke(cache);
+    }
 }

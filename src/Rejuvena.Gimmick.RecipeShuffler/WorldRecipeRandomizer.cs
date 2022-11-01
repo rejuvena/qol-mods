@@ -11,11 +11,18 @@ using Terraria.ModLoader;
 namespace Rejuvena.Gimmick.RecipeShuffler;
 
 [UsedImplicitly]
-public class WorldRecipeRandomizer : ModPlayer
+public sealed class WorldRecipeRandomizer : ModPlayer
 {
-    protected RecipeShufflerMod ShufflerMod => (RecipeShufflerMod) Mod;
+    private new RecipeShufflerMod Mod => (RecipeShufflerMod) base.Mod;
 
-    protected Func<bool>? Task = null;
+    private Func<bool>? Task;
+
+    public override bool IsLoadingEnabled(Mod mod) {
+        if (mod is RecipeShufflerMod) return true;
+
+        mod.Logger.Warn($"Attempted to load type '{nameof(WorldRecipeRandomizer)}' from mod '{mod.Name}'.");
+        return false;
+    }
 
     public override void OnEnterWorld(Player player) {
         if (!AppliesToUs(player)) return;
@@ -24,7 +31,7 @@ public class WorldRecipeRandomizer : ModPlayer
             WorldGen.currentWorldSeed = "";
 
             // Send request packet to the server.
-            ModPacket packet = ShufflerMod.GetPacket();
+            ModPacket packet = Mod.GetPacket();
             packet.Write((byte) PacketHandler.PacketType.RequestSeedFromServer);
             packet.Send();
 
@@ -43,47 +50,53 @@ public class WorldRecipeRandomizer : ModPlayer
         if (AppliesToUs(Player) && Task != null && Task()) Task = null;
     }
 
-    protected void ShuffleRecipes() {
+    private void ShuffleRecipes() {
         void Log(string msg) {
-            Main.NewText($"[{Mod.Name}] {msg}");
-            ShufflerMod.Logger.Debug($"[{Mod.Name}] {msg}");
+            Main.NewText($"[{((ModType) this).Mod.Name}] {msg}");
+            Mod.Logger.Debug($"[{((ModType) this).Mod.Name}] {msg}");
         }
 
         if (Debugger.IsAttached) Log("[Debug] " + Language.GetTextValue("Mods.RecipeShuffler.Chat.FoundWorldSeed", WorldGen.currentWorldSeed));
 
         if (!int.TryParse(WorldGen.currentWorldSeed, out int seed)) seed = Crc32.Calculate(WorldGen.currentWorldSeed);
 
+        Mod.OnPreRecipeShuffle(seed);
+
         Log(Language.GetTextValue("Mods.RecipeShuffler.Chat.LoadingCache", seed));
 
-        if (ShufflerMod.Caches.ContainsKey(seed)) {
-            if (ShufflerMod.Caches[seed].VerifyIntegrity(ShufflerMod.VanillaCache)) {
+        if (Mod.Caches.ContainsKey(seed)) {
+            if (Mod.Caches[seed].VerifyIntegrity(Mod.VanillaCache)) {
                 Log(Language.GetTextValue("Mods.RecipeShuffler.Chat.FailedVerification"));
                 goto IntegFail;
             }
 
+            // eh... good enough
+            Mod.OnRecipeShuffle(Mod.Caches[seed]);
             Log(Language.GetTextValue("Mods.RecipeShuffler.Chat.UsingVerified"));
-
+            Mod.OnPostRecipeShuffle(Mod.Caches[seed]);
             return;
         }
 
     IntegFail:
         RecipeCache cache = new();
-        cache.SetRecipes(ShufflerMod.VanillaCache.ReadonlyRecipes);
+        cache.SetRecipes(Mod.VanillaCache.ReadonlyRecipes);
         cache.ShuffleRecipes(seed);
+        Mod.OnRecipeShuffle(cache);
 
-        if (!cache.VerifyIntegrity(ShufflerMod.VanillaCache)) {
+        if (!cache.VerifyIntegrity(Mod.VanillaCache)) {
             Log(Language.GetTextValue("Mods.RecipeShuffler.Chat.FailedIntegrity"));
             return;
         }
 
         Log(Language.GetTextValue("Mods.RecipeShuffler.Chat.SuccessfullyShuffled"));
 
-        ShufflerMod.VanillaCache.SetRecipes(cache.ReadonlyRecipes);
-        ShufflerMod.Caches[seed] = cache;
+        Mod.VanillaCache.SetRecipes(cache.ReadonlyRecipes);
+        Mod.Caches[seed] = cache;
+        Mod.OnPostRecipeShuffle(cache);
 
         Log(Language.GetTextValue("Mods.RecipeShuffler.Chat.AppliedNew"));
     }
-        
+
     private static bool AppliesToUs(Entity player) {
         return Main.netMode == NetmodeID.SinglePlayer || (Main.netMode == NetmodeID.MultiplayerClient && player.whoAmI == Main.myPlayer);
     }

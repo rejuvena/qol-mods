@@ -40,6 +40,36 @@ public class FertilephyteMod : Mod
     public override void Load() {
         base.Load();
 
+        IL.Terraria.WorldGen.hardUpdateWorld += il =>
+        {
+            /*
+             * Objectives:
+             *  - [x] Make Chlorophyte spawn with a 1/2 chance instead of a 1/3 chance if Plantera has been defeated.
+             */
+            ILCursor c = new(il);
+            
+            // Jump to our reliable anchor point (ldc.i4 211) x2.
+            // TODO: It's definitely possible to make this safer by matching ldloc.x followed directly by ldc.i4 211. Do this maybe?
+            if (!c.TryGotoNext(x => x.MatchLdcI4(TileID.Chlorophyte))) {
+                LogILError("Terraria.WorldGen::hardUpdateWorld ldc.i4 211 (1)");
+                return;
+            }
+            
+            if (!c.TryGotoNext(x => x.MatchLdcI4(TileID.Chlorophyte))) {
+                LogILError("Terraria.WorldGen::hardUpdateWorld ldc.i4 211 (2)");
+                return;
+            }
+            
+            // Jump to ldc.i4 emission and push 2 if Plantera is killed, otherwise push 3 (the original value).
+            // TODO: Return (x - 1) instead of 2 in case the value changes?
+            if (!c.TryGotoNext(MoveType.After, x => x.MatchLdcI4(out _))) {
+                LogILError("After: Terraria.WorldGen::hardUpdateWorld ldc.i4 _");
+                return;
+            }
+
+            c.EmitDelegate((int x) => NPC.downedPlantBoss ? 2 : x);
+        };
+
         IL.Terraria.WorldGen.Chlorophyte += il =>
         {
             /* Objectives:

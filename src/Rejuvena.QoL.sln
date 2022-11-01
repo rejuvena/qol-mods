@@ -24,6 +24,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rejuvena.Gimmick.RecipeShuf
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rejuvena.QoL.Fertilephyte", "Rejuvena.QoL.Fertilephyte\Rejuvena.QoL.Fertilephyte.csproj", "{F595FB81-6835-4884-A32C-441A3A6479D5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rejuvena.QoL.ErrorReporterGenerator", "Rejuvena.QoL.ErrorReporterGenerator\Rejuvena.QoL.ErrorReporterGenerator.csproj", "{AC42702F-8D1F-4284-872E-F07DA4B1033B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -38,6 +40,7 @@ Global
 		{01C75B44-D863-4672-ABD6-21349599DFA3} = {CCA5AEB9-01A1-4981-9350-82149FEF5A23}
 		{67E27F25-307D-4A6C-8A54-F25587F8892C} = {01C75B44-D863-4672-ABD6-21349599DFA3}
 		{F595FB81-6835-4884-A32C-441A3A6479D5} = {74D92CD6-425D-4E8D-ABFC-84343897C408}
+		{AC42702F-8D1F-4284-872E-F07DA4B1033B} = {CCA5AEB9-01A1-4981-9350-82149FEF5A23}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{734B5952-1855-4199-94AC-DA8A90F2559C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -52,5 +55,9 @@ Global
 		{F595FB81-6835-4884-A32C-441A3A6479D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F595FB81-6835-4884-A32C-441A3A6479D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F595FB81-6835-4884-A32C-441A3A6479D5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AC42702F-8D1F-4284-872E-F07DA4B1033B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AC42702F-8D1F-4284-872E-F07DA4B1033B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AC42702F-8D1F-4284-872E-F07DA4B1033B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AC42702F-8D1F-4284-872E-F07DA4B1033B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

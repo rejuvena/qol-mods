@@ -1,15 +1,15 @@
 ﻿{
     Mods.HappinessRemoval: {
-        Errors: {
-            ErrorWarnMessage:
-                '''
-                WARNING: Non-fatal errors occurred during the loading process of 'Happiness Removal'.
-                WARNING: Please send the logs to the mod's developer through their homepage.
-                WARNING: A list of caught errors are as follows:
-                '''
-    
-            # ILLoadError: WARNING: Non-fatal IL patch failed to apply: {0}.
-        }
+        # Errors: {
+        #     ErrorWarnMessage:
+        #         '''
+        #         WARNING: Non-fatal errors occurred during the loading process of 'Happiness Removal'.
+        #         WARNING: Please send the logs to the mod's developer through their homepage.
+        #         WARNING: A list of caught errors are as follows:
+        #         '''
+
+        #     ILLoadError: WARNING: Non-fatal IL patch failed to apply: {0}.
+        # }
         
         Chat: {
             HappinessRemoved: NPC happiness disabled by NPC Happiness Removal!

@@ -1,14 +1,14 @@
 ﻿{
     Mods.Fertilephyte: {
-        Errors: {
-            ErrorWarnMessage:
-                '''
-                WARNING: Non-fatal errors occurred during the loading process of 'Fertilephyte'.
-                WARNING: Please send the logs to the mod's developer through their homepage.
-                WARNING: A list of caught errors are as follows:
-                '''
+        # Errors: {
+        #     ErrorWarnMessage:
+        #         '''
+        #         WARNING: Non-fatal errors occurred during the loading process of 'Fertilephyte'.
+        #         WARNING: Please send the logs to the mod's developer through their homepage.
+        #         WARNING: A list of caught errors are as follows:
+        #         '''
     
-            # ILLoadError: WARNING: Non-fatal IL patch failed to apply: {0}.
-        }
+        #     ILLoadError: WARNING: Non-fatal IL patch failed to apply: {0}.
+        # }
     }
 }

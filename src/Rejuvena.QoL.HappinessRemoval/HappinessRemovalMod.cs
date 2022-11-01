@@ -1,9 +1,6 @@
-using System.Collections.Generic;
+using HappinessRemoval;
 using JetBrains.Annotations;
 using MonoMod.Cil;
-using Terraria;
-using Terraria.ID;
-using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace Rejuvena.QoL.HappinessRemoval;
@@ -11,31 +8,6 @@ namespace Rejuvena.QoL.HappinessRemoval;
 [UsedImplicitly]
 public sealed class HappinessRemovalMod : Mod
 {
-    private class ErrorReporter : ModPlayer
-    {
-        private new HappinessRemovalMod Mod => (HappinessRemovalMod) base.Mod;
-
-        public override bool IsLoadingEnabled(Mod mod) {
-            if (mod is HappinessRemovalMod) return true;
-
-            mod.Logger.Warn($"Attempted to load type '{nameof(ErrorReporter)}' from mod '{mod.Name}'.");
-            return false;
-        }
-
-        public override void OnEnterWorld(Player player) {
-            static void Log(string text) => Main.NewText(text, Colors.RarityRed);
-
-            base.OnEnterWorld(player);
-                
-            if (Mod.Warnings.Count == 0) return;
-
-            Log(Language.GetTextValue("Mods.HappinessRemoval.Errors.ErrorWarnMessage"));
-            Mod.Warnings.ForEach(Log);
-        }
-    }
-
-    private readonly List<string> Warnings = new();
-
     public override void Load() {
         base.Load();
 
@@ -44,7 +16,7 @@ public sealed class HappinessRemovalMod : Mod
             ILCursor c = new(il);
 
             if (!c.TryGotoNext(MoveType.Before, x => x.MatchStloc(0))) {
-                LogILError("Terraria.Chest::SetupShop stloc.0");
+                this.AddWarning("Terraria.Chest::SetupShop stloc.0");
                 return;
             }
 
@@ -57,7 +29,7 @@ public sealed class HappinessRemovalMod : Mod
             ILCursor c = new(il);
 
             if (!c.TryGotoNext(MoveType.After, x => x.MatchLdstr("UI.NPCCheckHappiness"))) {
-                LogILError("Terraria.Main::DrawNPCChatButtons ldstr \"UI.NPCCheckHappiness\"");
+                this.AddWarning("Terraria.Main::DrawNPCChatButtons ldstr \"UI.NPCCheckHappiness\"");
                 return;
             }
 
@@ -65,10 +37,5 @@ public sealed class HappinessRemovalMod : Mod
             //c.Emit(OpCodes.Ldstr, string.Empty);
             c.EmitDelegate((string text) => ModContent.GetInstance<HappinessConfig>().ToggleHappiness ? text : "");
         };
-    }
-
-    private void LogILError(string text) {
-        Warnings.Add(text);
-        Logger.Warn(text);
     }
 }

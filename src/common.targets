@@ -1,5 +1,7 @@
 <Project>
 
+    <Import Project="project.targets"/>
+
     <PropertyGroup Label="Project Settings">
         <TargetFramework>net6.0</TargetFramework>
         <LangVersion>latest</LangVersion>
@@ -23,6 +25,14 @@
     <ItemGroup Label="Shared Packages">
         <PackageReference Include="JetBrains.Annotations" Version="2022.1.0"/>
         <PackageReference Include="Rejuvena.Collate" Version="1.2.3"/>
+    </ItemGroup>
+
+    <ItemGroup Label="Local Analyzers">
+        <ProjectReference
+                Include="..\Rejuvena.QoL.ErrorReporterGenerator\Rejuvena.QoL.ErrorReporterGenerator.csproj"
+                OutputItemType="Analyzer"
+                ReferenceOutputAssembly="false"
+        />
     </ItemGroup>
 
 </Project>

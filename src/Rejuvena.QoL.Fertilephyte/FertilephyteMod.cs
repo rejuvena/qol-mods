@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Fertilephyte;
 using JetBrains.Annotations;
 using Mono.Cecil.Cil;
 using MonoMod.Cil;
@@ -12,31 +13,6 @@ namespace Rejuvena.QoL.Fertilephyte;
 [UsedImplicitly]
 public class FertilephyteMod : Mod
 {
-    private class ErrorReporter : ModPlayer
-    {
-        private new FertilephyteMod Mod => (FertilephyteMod) base.Mod;
-
-        public override bool IsLoadingEnabled(Mod mod) {
-            if (mod is FertilephyteMod) return true;
-
-            mod.Logger.Warn($"Attempted to load type '{nameof(ErrorReporter)}' from mod '{mod.Name}'.");
-            return false;
-        }
-
-        public override void OnEnterWorld(Player player) {
-            static void Log(string text) => Main.NewText(text, Colors.RarityRed);
-
-            base.OnEnterWorld(player);
-
-            if (Mod.Warnings.Count == 0) return;
-
-            Log(Language.GetTextValue("Mods.Fertilephyte.Errors.ErrorWarnMessage"));
-            Mod.Warnings.ForEach(Log);
-        }
-    }
-
-    private readonly List<string> Warnings = new();
-
     public override void Load() {
         base.Load();
 
@@ -51,19 +27,19 @@ public class FertilephyteMod : Mod
             // Jump to our reliable anchor point (ldc.i4 211) x2.
             // TODO: It's definitely possible to make this safer by matching ldloc.x followed directly by ldc.i4 211. Do this maybe?
             if (!c.TryGotoNext(x => x.MatchLdcI4(TileID.Chlorophyte))) {
-                LogILError("Terraria.WorldGen::hardUpdateWorld ldc.i4 211 (1)");
+                this.AddWarning("Terraria.WorldGen::hardUpdateWorld ldc.i4 211 (1)");
                 return;
             }
             
             if (!c.TryGotoNext(x => x.MatchLdcI4(TileID.Chlorophyte))) {
-                LogILError("Terraria.WorldGen::hardUpdateWorld ldc.i4 211 (2)");
+                this.AddWarning("Terraria.WorldGen::hardUpdateWorld ldc.i4 211 (2)");
                 return;
             }
             
             // Jump to ldc.i4 emission and push 2 if Plantera is killed, otherwise push 3 (the original value).
             // TODO: Return (x - 1) instead of 2 in case the value changes?
             if (!c.TryGotoNext(MoveType.After, x => x.MatchLdcI4(out _))) {
-                LogILError("After: Terraria.WorldGen::hardUpdateWorld ldc.i4 _");
+                this.AddWarning("After: Terraria.WorldGen::hardUpdateWorld ldc.i4 _");
                 return;
             }
 
@@ -86,12 +62,12 @@ public class FertilephyteMod : Mod
             //  - [x] Replace the regular height check with float.MinValue to ensure the position is always greater.
             ILLabel? branch = null;
             if (!c.TryGotoNext(MoveType.Before, x => x.MatchBgeUn(out branch))) {
-                LogILError("Before: Terraria.WorldGen::Chlorophyte bge.un.s");
+                this.AddWarning("Before: Terraria.WorldGen::Chlorophyte bge.un.s");
                 return;
             }
 
             if (branch is null) {
-                LogILError("Terraria.WorldGen::Chlorophyte Failed to match branch!");
+                this.AddWarning("Terraria.WorldGen::Chlorophyte Failed to match branch!");
                 return;
             }
 
@@ -99,45 +75,45 @@ public class FertilephyteMod : Mod
 
             // Match ldc.i4 opcode in the branch block to determine radius limit variables.
             if (!c.TryGotoNext(x => x.MatchLdcI4(out _))) {
-                LogILError("Terraria.WorldGen::Chlorophyte ldc.i4 _ (1)");
+                this.AddWarning("Terraria.WorldGen::Chlorophyte ldc.i4 _ (1)");
                 return;
             }
 
             int limit1Index = -1;
             if (!c.TryGotoPrev(x => x.MatchLdloc(out limit1Index))) {
-                LogILError("Previous: Terraria.WorldGen::Chlorophyte ldloc _ (1)");
+                this.AddWarning("Previous: Terraria.WorldGen::Chlorophyte ldloc _ (1)");
                 return;
             }
 
             // Do it once more...
             if (!c.TryGotoNext(x => x.MatchLdcI4(out _))) {
-                LogILError("Terraria.WorldGen::Chlorophyte ldc.i4 _ (2)");
+                this.AddWarning("Terraria.WorldGen::Chlorophyte ldc.i4 _ (2)");
                 return;
             }
 
             int limit2Index = -1;
             if (!c.TryGotoPrev(x => x.MatchLdloc(out limit2Index))) {
-                LogILError("Previous: Terraria.WorldGen::Chlorophyte ldloc _ (2)");
+                this.AddWarning("Previous: Terraria.WorldGen::Chlorophyte ldloc _ (2)");
                 return;
             }
 
             if (limit1Index == -1) {
-                LogILError("Terraria.WorldGen::Chlorophyte Failed to match index of limit 1!");
+                this.AddWarning("Terraria.WorldGen::Chlorophyte Failed to match index of limit 1!");
                 return;
             }
 
             if (limit2Index == -1) {
-                LogILError("Terraria.WorldGen::Chlorophyte Failed to match index of limit 2!");
+                this.AddWarning("Terraria.WorldGen::Chlorophyte Failed to match index of limit 2!");
                 return;
             }
 
             if (!c.TryGotoNext(MoveType.Before, x => x.MatchLdcI4(0))) {
-                LogILError("Before: Terraria.WorldGen::Chlorophyte ldc.i4 0");
+                this.AddWarning("Before: Terraria.WorldGen::Chlorophyte ldc.i4 0");
                 return;
             }
 
             if (c.Next != branch.Target) {
-                LogILError($"Terraria.WorldGen::Chlorohpyte Unexpected cursor position! branch (expected): {branch.Target}, cursor (result): {c.Next}");
+                this.AddWarning($"Terraria.WorldGen::Chlorohpyte Unexpected cursor position! branch (expected): {branch.Target}, cursor (result): {c.Next}");
                 return;
             }
             
@@ -155,11 +131,6 @@ public class FertilephyteMod : Mod
             EmitAndMultiplyValue(limit1Index);
             EmitAndMultiplyValue(limit2Index);
         };
-    }
-
-    private void LogILError(string text) {
-        Warnings.Add(text);
-        Logger.Warn(text);
     }
 
     // Reverse-engineered Terraria.WorldGen::Chlorophyte

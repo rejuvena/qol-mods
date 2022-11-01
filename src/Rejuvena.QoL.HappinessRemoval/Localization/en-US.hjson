@@ -8,7 +8,7 @@
                 WARNING: A list of caught errors are as follows:
                 '''
     
-            ILLoadError: WARNING: Non-fatal IL patch failed to apply: {0}.
+            # ILLoadError: WARNING: Non-fatal IL patch failed to apply: {0}.
         }
         
         Chat: {

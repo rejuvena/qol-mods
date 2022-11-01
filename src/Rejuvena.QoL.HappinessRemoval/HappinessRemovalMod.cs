@@ -67,8 +67,7 @@ public sealed class HappinessRemovalMod : Mod
         };
     }
 
-    private void LogILError(string name) {
-        string text = Language.GetTextValue("Mods.HappinessRemoval.Errors.ILLoadError", name);
+    private void LogILError(string text) {
         Warnings.Add(text);
         Logger.Warn(text);
     }

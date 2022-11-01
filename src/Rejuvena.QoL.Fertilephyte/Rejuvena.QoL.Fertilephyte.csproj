@@ -4,7 +4,7 @@
         <DisplayName>Fertilephyte</DisplayName>
         <AssemblyName>Fertilephyte</AssemblyName>
         <RootNamespace>Rejuvena.QoL.Fertilephyte</RootNamespace>
-        <Version>1.0.0</Version>
+        <Version>1.0.1</Version>
     </PropertyGroup>
 
     <Import Project="../common.targets" />

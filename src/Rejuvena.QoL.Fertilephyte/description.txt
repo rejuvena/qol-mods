@@ -1,0 +1,1 @@
+﻿Increases the growth rate and max growth density of Chlorophyte once Plantera has been defeated, in hopes of remedying the issue of Chlorophyte being one of the most awkward progression stages in the game.

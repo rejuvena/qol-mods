@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup Label="Project and Build Properties">
+        <DisplayName>Terraria: Declassified</DisplayName>
+        <AssemblyName>TerrariaDeclassified</AssemblyName>
+        <RootNamespace>Rejuvena.Gimmick.TerrariaDeclassified</RootNamespace>
+        <!-- <AccessTransformerPaths>$(AccessTransformerPaths);$(MSBuildProjectDirectory)\.accesstransformer</AccessTransformerPaths> -->
+        <Version>0.1.0</Version>
+    </PropertyGroup>
+
+    <Import Project="../common.targets" />
+
+</Project>

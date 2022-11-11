@@ -1,0 +1,7 @@
+﻿{
+    Mods.TerrariaDeclassified: {
+        DamageClasses: {
+            Typeless: damage
+        }
+    }
+}
